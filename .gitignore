@@ -32,3 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 docs/ 
+
+### H2 Database ###
+data/
+*.mv.db
+*.trace.db
