@@ -35,5 +35,6 @@ docs/
 
 ### H2 Database ###
 data/
+data_backup_*/
 *.mv.db
 *.trace.db

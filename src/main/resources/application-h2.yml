@@ -21,3 +21,16 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    enabled: true
+
+app:
+  cors:
+    allowed-origins: http://localhost:5173,http://127.0.0.1:5173,http://localhost:4200
+  jwt:
+    secret: ILPEwcQMZU9TnjpXzv/hRWNoC9n1Imz+nPTBwMZH7TBX9n7f7XagfIgD7LhCEFZNclj1zxfx9FbVvbpfH45HOA==
+    expiracion-minutos: 60
