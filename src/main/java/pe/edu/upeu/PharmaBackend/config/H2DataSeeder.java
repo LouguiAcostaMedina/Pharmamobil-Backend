@@ -8,11 +8,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pe.edu.upeu.PharmaBackend.entity.Categoria;
+import pe.edu.upeu.PharmaBackend.entity.Cliente;
 import pe.edu.upeu.PharmaBackend.entity.Empleado;
 import pe.edu.upeu.PharmaBackend.entity.Producto;
 import pe.edu.upeu.PharmaBackend.entity.Rol;
 import pe.edu.upeu.PharmaBackend.entity.Usuario;
 import pe.edu.upeu.PharmaBackend.repository.CategoriaRepository;
+import pe.edu.upeu.PharmaBackend.repository.ClienteRepository;
 import pe.edu.upeu.PharmaBackend.repository.EmpleadoRepository;
 import pe.edu.upeu.PharmaBackend.repository.ProductoRepository;
 import pe.edu.upeu.PharmaBackend.repository.RolRepository;
@@ -33,6 +35,7 @@ public class H2DataSeeder implements CommandLineRunner {
     private final JdbcTemplate jdbcTemplate;
     private final CategoriaRepository categoriaRepository;
     private final ProductoRepository productoRepository;
+    private final ClienteRepository clienteRepository;
     private final RolRepository rolRepository;
     private final EmpleadoRepository empleadoRepository;
     private final UsuarioRepository usuarioRepository;
@@ -42,6 +45,7 @@ public class H2DataSeeder implements CommandLineRunner {
             JdbcTemplate jdbcTemplate,
             CategoriaRepository categoriaRepository,
             ProductoRepository productoRepository,
+            ClienteRepository clienteRepository,
             RolRepository rolRepository,
             EmpleadoRepository empleadoRepository,
             UsuarioRepository usuarioRepository,
@@ -49,6 +53,7 @@ public class H2DataSeeder implements CommandLineRunner {
         this.jdbcTemplate = jdbcTemplate;
         this.categoriaRepository = categoriaRepository;
         this.productoRepository = productoRepository;
+        this.clienteRepository = clienteRepository;
         this.rolRepository = rolRepository;
         this.empleadoRepository = empleadoRepository;
         this.usuarioRepository = usuarioRepository;
@@ -59,7 +64,16 @@ public class H2DataSeeder implements CommandLineRunner {
     public void run(String... args) {
         inicializarEsquemaH2SiNoExiste();
         inicializarCatalogo();
+        inicializarClientes();
         inicializarSeguridad();
+    }
+
+    private void inicializarClientes() {
+        if (clienteRepository.count() == 0) {
+            Cliente c1 = new Cliente(null, "12345678", "Juan", "Perez Prado", "juan.perez@pharma.pe", "987654321", "Av. Brasil 123", true, LocalDateTime.now(), null);
+            clienteRepository.save(c1);
+            log.info("====== H2 DATABASE SEEDED WITH DEFAULT CLIENT ======");
+        }
     }
 
     private void inicializarEsquemaH2SiNoExiste() {
